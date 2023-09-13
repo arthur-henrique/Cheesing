@@ -30,7 +30,8 @@ public:
 	float BaseLookUpRate;
 
 protected:
-
+	UFUNCTION(BlueprintCallable)
+	void Test();
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
 

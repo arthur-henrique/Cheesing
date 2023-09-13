@@ -77,6 +77,11 @@ void ACheesingCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 }
 
 
+void ACheesingCharacter::Test()
+{
+	UE_LOG(LogTemp, Display, TEXT("Teste2"));
+}
+
 void ACheesingCharacter::OnResetVR()
 {
 	// If Cheesing is added to a project via 'Add Feature' in the Unreal Editor the dependency on HeadMountedDisplay in Cheesing.Build.cs is not automatically propagated
