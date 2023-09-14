@@ -2,9 +2,19 @@
 
 #pragma once
 
+#include "GameFramework/CharacterMovementComponent.h" 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "CheesingCharacter.generated.h"
+
+UENUM(BlueprintType)
+enum class EMcmovement : uint8
+{
+	VE_Walking UMETA(DisplayName = "Walking"),
+	VE_Rolling UMETA(DisplayName = "Rolling"),
+
+};
+
 
 UCLASS(config=Game)
 class ACheesingCharacter : public ACharacter
@@ -31,7 +41,7 @@ public:
 
 protected:
 	UFUNCTION(BlueprintCallable)
-	void Test();
+	void Roll();
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
 
@@ -69,5 +79,26 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Roll")
+	float rollSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Roll")
+	float rollAcceleration;
+
+private:
+	float normalWalkSpeed;
+
+	float normalAcceleration;
+
+	UCharacterMovementComponent* moveComponent;
+
+public:
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	EMcmovement movementEnum;
+
 };
 

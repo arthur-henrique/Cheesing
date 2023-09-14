@@ -43,8 +43,16 @@ ACheesingCharacter::ACheesingCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
+
+	moveComponent = GetCharacterMovement();
+	normalWalkSpeed = moveComponent->MaxWalkSpeed;
+	normalAcceleration = moveComponent->MaxAcceleration;
+	movementEnum = EMcmovement::VE_Walking;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -77,9 +85,30 @@ void ACheesingCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 }
 
 
-void ACheesingCharacter::Test()
+void ACheesingCharacter::Roll()
 {
-	UE_LOG(LogTemp, Display, TEXT("Teste2"));
+	//FVector velocity = GetVelocity();
+	//UE_LOG(LogTemp, Display, TEXT("Teste2"));
+	//UE_LOG(LogTemp, Display, TEXT("Velocity: %f"), velocity.Y);
+	
+	if (movementEnum == EMcmovement::VE_Walking)
+	{
+		movementEnum = EMcmovement::VE_Rolling;
+		UE_LOG(LogTemp, Display, TEXT("Rolling"));
+
+		moveComponent->MaxWalkSpeed = rollSpeed;
+		moveComponent->MaxAcceleration = rollAcceleration;
+	}
+	else if (movementEnum == EMcmovement::VE_Rolling)
+	{
+		movementEnum = EMcmovement::VE_Walking;
+		UE_LOG(LogTemp, Display, TEXT("Walking"));
+
+		moveComponent->MaxWalkSpeed = normalWalkSpeed;
+		moveComponent->MaxAcceleration = normalAcceleration;
+	}
+	
+	
 }
 
 void ACheesingCharacter::OnResetVR()
