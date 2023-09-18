@@ -37,6 +37,7 @@ void ABasicEnemy::TakeDamageM(int damage)
 {
 	health -= damage;
 
+	UE_LOG(LogTemp, Warning, TEXT("Took Damage"));
 	if (health <= 0)
 	{
 		Destroy(true);

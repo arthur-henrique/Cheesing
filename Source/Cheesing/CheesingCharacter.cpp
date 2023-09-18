@@ -56,7 +56,7 @@ ACheesingCharacter::ACheesingCharacter()
 	normalAcceleration = moveComponent->MaxAcceleration;
 	stateEnum = ECharstate::VE_Walking;
 
-	normalCooldown = 5.f;
+	attackCooldown = 5.f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -117,8 +117,8 @@ void ACheesingCharacter::Roll()
 
 void ACheesingCharacter::MeleeAttack()
 {
-	UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), attackCooldown);
-	if (attackCooldown <= 0)
+	UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), normalCooldown);
+	if (normalCooldown <= 0)
 	{
 		stateEnum = ECharstate::VE_Attacking;
 		UE_LOG(LogTemp, Display, TEXT("Attacking"));
@@ -133,24 +133,24 @@ void ACheesingCharacter::MeleeAttack()
 
 			UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
 
-			if (actor->GetClass()->ImplementsInterface((UDamageInterface :: StaticClass())))
+			if (IDamageInterface* dActor = Cast<IDamageInterface>(actor))
 			{
-				//ABasicEnemy*
+				dActor->TakeDamageM(10); //Casta a interface no objeto q implementou ela
 			}
 		}
 
 		stateEnum = ECharstate::VE_Walking;
 
-		attackCooldown = normalCooldown;
+		normalCooldown = attackCooldown;
 	}
 }
 
 void ACheesingCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (attackCooldown > 0)
+	if (normalCooldown > 0)
 	{
-		attackCooldown -= DeltaTime;
+		normalCooldown -= DeltaTime;
 	}
 }
 
