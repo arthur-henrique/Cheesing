@@ -5,13 +5,17 @@
 #include "GameFramework/CharacterMovementComponent.h" 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include <Runtime/Engine/Classes/Components/SphereComponent.h>
+
 #include "CheesingCharacter.generated.h"
 
+
 UENUM(BlueprintType)
-enum class EMcmovement : uint8
+enum class ECharstate : uint8
 {
 	VE_Walking UMETA(DisplayName = "Walking"),
 	VE_Rolling UMETA(DisplayName = "Rolling"),
+	VE_Attacking UMETA(DisplayName = "Attacking"),
 
 };
 
@@ -42,6 +46,13 @@ public:
 protected:
 	UFUNCTION(BlueprintCallable)
 	void Roll();
+
+	UFUNCTION(BlueprintCallable)
+	void MeleeAttack();
+
+	virtual void Tick(float DeltaTime) override;
+
+
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
 
@@ -86,19 +97,32 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Roll")
 	float rollAcceleration;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
+	float attackCooldown;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Attack")
+	USphereComponent* attackRadiusTeste;
+
+	TArray<AActor*> overlapingActors;
 
 private:
 	float normalWalkSpeed;
 
 	float normalAcceleration;
 
+	float normalCooldown;
+
 	UCharacterMovementComponent* moveComponent;
+
+	
+
 
 public:
 
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	EMcmovement movementEnum;
+	ECharstate stateEnum;
 
 };
 
