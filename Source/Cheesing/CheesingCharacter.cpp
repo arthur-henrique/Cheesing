@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include <Cheesing/Public/DamageInterface.h>
+#include <Cheesing/Public/BasicEnemy.h>
 
 //////////////////////////////////////////////////////////////////////////
 // ACheesingCharacter
@@ -52,7 +54,9 @@ ACheesingCharacter::ACheesingCharacter()
 	moveComponent = GetCharacterMovement();
 	normalWalkSpeed = moveComponent->MaxWalkSpeed;
 	normalAcceleration = moveComponent->MaxAcceleration;
-	movementEnum = EMcmovement::VE_Walking;
+	stateEnum = ECharstate::VE_Walking;
+
+	normalCooldown = 5.f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,17 +95,17 @@ void ACheesingCharacter::Roll()
 	//UE_LOG(LogTemp, Display, TEXT("Teste2"));
 	//UE_LOG(LogTemp, Display, TEXT("Velocity: %f"), velocity.Y);
 	
-	if (movementEnum == EMcmovement::VE_Walking)
+	if (stateEnum == ECharstate::VE_Walking)
 	{
-		movementEnum = EMcmovement::VE_Rolling;
+		stateEnum = ECharstate::VE_Rolling;
 		UE_LOG(LogTemp, Display, TEXT("Rolling"));
 
 		moveComponent->MaxWalkSpeed = rollSpeed;
 		moveComponent->MaxAcceleration = rollAcceleration;
 	}
-	else if (movementEnum == EMcmovement::VE_Rolling)
+	else if (stateEnum == ECharstate::VE_Rolling)
 	{
-		movementEnum = EMcmovement::VE_Walking;
+		stateEnum = ECharstate::VE_Walking;
 		UE_LOG(LogTemp, Display, TEXT("Walking"));
 
 		moveComponent->MaxWalkSpeed = normalWalkSpeed;
@@ -110,6 +114,46 @@ void ACheesingCharacter::Roll()
 	
 	
 }
+
+void ACheesingCharacter::MeleeAttack()
+{
+	UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), attackCooldown);
+	if (attackCooldown <= 0)
+	{
+		stateEnum = ECharstate::VE_Attacking;
+		UE_LOG(LogTemp, Display, TEXT("Attacking"));
+
+		//Inserir a lógica de ataque  	
+		attackRadiusTeste->GetOverlappingActors(overlapingActors);
+
+		for (AActor* actor : overlapingActors)
+		{
+			FString s;
+			actor->GetName(s);
+
+			UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
+
+			if (actor->GetClass()->ImplementsInterface((UDamageInterface :: StaticClass())))
+			{
+				//ABasicEnemy*
+			}
+		}
+
+		stateEnum = ECharstate::VE_Walking;
+
+		attackCooldown = normalCooldown;
+	}
+}
+
+void ACheesingCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (attackCooldown > 0)
+	{
+		attackCooldown -= DeltaTime;
+	}
+}
+
 
 void ACheesingCharacter::OnResetVR()
 {
