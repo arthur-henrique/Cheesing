@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "DamageInterface.h"
+#include <Components/SphereComponent.h>
 
 #include "BasicEnemy.generated.h"
+
 
 UCLASS()
 class CHEESING_API ABasicEnemy : public APawn, public IDamageInterface
@@ -20,6 +22,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable, Category = "HeadJump")
+	void LaunchPlayerUp();
 
 
 public:	
@@ -36,5 +41,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Health")
 	int health;
+
+	UPROPERTY(EditAnywhere, Category = "HeadJump")
+	float upForce;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "HeadJump")
+	USphereComponent* headRadius;
 
 };

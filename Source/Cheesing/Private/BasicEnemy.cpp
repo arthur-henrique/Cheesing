@@ -2,6 +2,7 @@
 
 
 #include "BasicEnemy.h"
+#include <Cheesing/CheesingCharacter.h>
 
 // Sets default values
 ABasicEnemy::ABasicEnemy()
@@ -16,6 +17,24 @@ void ABasicEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ABasicEnemy::LaunchPlayerUp()
+{
+	TSubclassOf<ACheesingCharacter> playerClass;
+	TArray<AActor*> player;
+	headRadius->GetOverlappingActors(player, playerClass);
+
+	UE_LOG(LogTemp, Display, TEXT("Player Detected"));
+
+	for (AActor* playerA : player) 
+	{
+		if (ACheesingCharacter* cPlayer = Cast<ACheesingCharacter>(playerA))
+		{
+			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
+			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
+		}
+	}
 }
 
 
