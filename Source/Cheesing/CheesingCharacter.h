@@ -16,6 +16,7 @@ enum class ECharstate : uint8
 	VE_Walking UMETA(DisplayName = "Walking"),
 	VE_Rolling UMETA(DisplayName = "Rolling"),
 	VE_Attacking UMETA(DisplayName = "Attacking"),
+	VE_Dashing UMETA(DisplayName = "Dashing"),
 
 };
 
@@ -49,6 +50,11 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void MeleeAttack();
+
+	UFUNCTION(BlueprintCallable)
+	void Dash();
+
+	float GetFloatVelocity();
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -98,6 +104,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Roll")
 	float rollAcceleration;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash")
+	float dashSpeedMultiplier;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
 	float attackCooldown;
 

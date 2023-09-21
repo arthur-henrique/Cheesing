@@ -117,32 +117,53 @@ void ACheesingCharacter::Roll()
 
 void ACheesingCharacter::MeleeAttack()
 {
-	UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), normalCooldown);
-	if (normalCooldown <= 0)
+	if (stateEnum == ECharstate::VE_Walking)
 	{
-		stateEnum = ECharstate::VE_Attacking;
-		UE_LOG(LogTemp, Display, TEXT("Attacking"));
-
-		//Inserir a lógica de ataque  	
-		attackRadiusTeste->GetOverlappingActors(overlapingActors);
-
-		for (AActor* actor : overlapingActors)
+		UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), normalCooldown);
+		if (normalCooldown <= 0)
 		{
-			FString s;
-			actor->GetName(s);
+			stateEnum = ECharstate::VE_Attacking;
+			UE_LOG(LogTemp, Display, TEXT("Attacking"));
 
-			UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
+			//Inserir a lógica de ataque  	
+			attackRadiusTeste->GetOverlappingActors(overlapingActors);
 
-			if (IDamageInterface* dActor = Cast<IDamageInterface>(actor))
+			for (AActor* actor : overlapingActors)
 			{
-				dActor->TakeDamageM(10); //Casta a interface no objeto q implementou ela
+				FString s;
+				actor->GetName(s);
+
+				UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
+
+				if (IDamageInterface* dActor = Cast<IDamageInterface>(actor))
+				{
+					dActor->TakeDamageM(10); //Casta a interface no objeto q implementou ela
+				}
 			}
+
+			stateEnum = ECharstate::VE_Walking;
+
+			normalCooldown = attackCooldown;
 		}
-
-		stateEnum = ECharstate::VE_Walking;
-
-		normalCooldown = attackCooldown;
 	}
+	else if (stateEnum == ECharstate::VE_Rolling && FMath::IsNearlyEqual(GetFloatVelocity(), rollSpeed, .1f))
+	{
+		Dash();
+	}
+}
+
+void ACheesingCharacter::Dash()
+{
+	FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
+	LaunchCharacter(dashVelocity * dashSpeedMultiplier,false,false);
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
+}
+
+/*Get character Velocity as a float( X, Y axis only)*/
+float ACheesingCharacter::GetFloatVelocity()
+{
+	FVector velocityXY = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
+	return FMath::Sqrt(FMath::Pow(velocityXY.X, 2) + FMath::Pow(velocityXY.Y, 2));
 }
 
 void ACheesingCharacter::Tick(float DeltaTime)
