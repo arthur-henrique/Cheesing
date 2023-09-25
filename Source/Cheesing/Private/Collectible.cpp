@@ -15,4 +15,12 @@ ACollectible::ACollectible()
 void ACollectible::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UGameInstance* gameInstance = GetGameInstance();
+	
+
+	if (UCheesingGameInstance* game = Cast<UCheesingGameInstance>(gameInstance))
+	{		
+		game->AddToCollectiblesArray(this);
+	}
 }

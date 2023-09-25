@@ -159,6 +159,25 @@ void ACheesingCharacter::Dash()
 	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
 }
 
+void ACheesingCharacter::Aim()
+{
+	if (stateEnum == ECharstate::VE_Walking)
+	{
+		stateEnum = ECharstate::VE_Aiming;
+		bUseControllerRotationYaw = true;
+		changingCamera = true;
+		
+	}
+	else if (stateEnum == ECharstate::VE_Aiming)
+	{
+		stateEnum = ECharstate::VE_Walking;
+		bUseControllerRotationYaw = false;
+		
+		changingCamera = true;
+	}
+
+}
+
 /*Get character Velocity as a float( X, Y axis only)*/
 float ACheesingCharacter::GetFloatVelocity()
 {
@@ -169,6 +188,28 @@ float ACheesingCharacter::GetFloatVelocity()
 void ACheesingCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (changingCamera)
+	{
+		timeDelta += DeltaTime;
+
+		if (stateEnum == ECharstate::VE_Aiming)
+		{
+			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(0.f, 0.f, 0.f), FVector(180.f, 60.f, 60.f), timeDelta));
+		}
+		else if (stateEnum == ECharstate::VE_Walking)
+		{
+			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(180.f, 60.f, 60.f), FVector(0.f, 0.f, 0.f), timeDelta));
+		}
+		//GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Cyan, FString::Printf(TEXT("%f"), timeDelta));
+		if (FMath::IsNearlyEqual(timeDelta,1,.1f) )
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, TEXT("Stop"));
+			changingCamera = false;
+			timeDelta = 0;
+		}
+	}
+	
 	if (normalCooldown > 0)
 	{
 		normalCooldown -= DeltaTime;

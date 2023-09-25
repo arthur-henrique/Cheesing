@@ -17,6 +17,7 @@ enum class ECharstate : uint8
 	VE_Rolling UMETA(DisplayName = "Rolling"),
 	VE_Attacking UMETA(DisplayName = "Attacking"),
 	VE_Dashing UMETA(DisplayName = "Dashing"),
+	VE_Aiming UMETA(DisplayName = "Aiming"),
 
 };
 
@@ -53,6 +54,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void Dash();
+
+	UFUNCTION(BlueprintCallable)
+	void Aim();
 
 	float GetFloatVelocity();
 
@@ -122,6 +126,10 @@ private:
 
 	float normalCooldown;
 
+	float timeDelta;
+
+	bool changingCamera;
+
 	UCharacterMovementComponent* moveComponent;
 
 	
@@ -132,6 +140,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
+
 
 };
 
