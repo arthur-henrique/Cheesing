@@ -11,6 +11,8 @@
 #include <Cheesing/Public/DamageInterface.h>
 #include <Cheesing/Public/BasicEnemy.h>
 
+
+
 //////////////////////////////////////////////////////////////////////////
 // ACheesingCharacter
 
@@ -150,6 +152,18 @@ void ACheesingCharacter::MeleeAttack()
 	{
 		Dash();
 	}
+	else if (stateEnum == ECharstate::VE_Aiming && hasAmmo)
+	{
+		FHitResult hit;
+
+		GetWorld()->LineTraceSingleByChannel(hit, FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, ECC_WorldDynamic);
+		DrawDebugLine(GetWorld(), FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, FColor::Red, true, 60.f, false, 4.f);
+		
+		UE_LOG(LogTemp, Display, TEXT("%s"), *hit.ImpactPoint.ToString());
+		UE_LOG(LogTemp,Display,TEXT("%s"), *hit.GetActor()->GetName())
+
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, TEXT("Shoot"));
+	}
 }
 
 void ACheesingCharacter::Dash()
@@ -183,6 +197,14 @@ float ACheesingCharacter::GetFloatVelocity()
 {
 	FVector velocityXY = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
 	return FMath::Sqrt(FMath::Pow(velocityXY.X, 2) + FMath::Pow(velocityXY.Y, 2));
+}
+
+void ACheesingCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	stateEnum = ECharstate::VE_Walking;
+
+	hasAmmo = true;
 }
 
 void ACheesingCharacter::Tick(float DeltaTime)

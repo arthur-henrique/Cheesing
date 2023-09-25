@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include <Runtime/Engine/Classes/Components/SphereComponent.h>
+#include <DrawDebugHelpers.h>
 
 #include "CheesingCharacter.generated.h"
 
@@ -59,6 +60,8 @@ protected:
 	void Aim();
 
 	float GetFloatVelocity();
+
+	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -116,6 +119,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Attack")
 	USphereComponent* attackRadiusTeste;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attack")
+	bool hasAmmo;
 
 	TArray<AActor*> overlapingActors;
 
