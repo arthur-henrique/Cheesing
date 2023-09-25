@@ -17,7 +17,7 @@ class CHEESING_API UCheesingGameInstance : public UGameInstance
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(BlueprintReadWrite, Category = "Collectibles")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Collectibles")
 	TArray<ACollectible*> collectiblesArray;
 
 protected:
@@ -28,4 +28,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Collectibles")
 	bool GetCollectStateFromIndex(int index);
+
+	UFUNCTION(BlueprintCallable, Category = "Collectibles")
+		void AddToCollectiblesArray(ACollectible* collectibleToAdd);
 };

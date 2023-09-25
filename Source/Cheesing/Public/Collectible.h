@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CheesingGameInstance.h"
+
 #include "Collectible.generated.h"
 
 UCLASS()
@@ -21,10 +23,9 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 public:
-	UPROPERTY(BlueprintReadWrite, Category = "Collectible Properties")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere,  Category = "Collectible Properties")
 	int id;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Collectible Properties")

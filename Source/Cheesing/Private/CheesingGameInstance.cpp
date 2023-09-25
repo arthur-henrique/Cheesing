@@ -18,3 +18,10 @@ bool UCheesingGameInstance::GetCollectStateFromIndex(int index)
 
 	return item -> wasCollected;
 }
+
+void UCheesingGameInstance::AddToCollectiblesArray(ACollectible* collectibleToAdd)
+{
+	collectiblesArray.Add(collectibleToAdd);
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Add");
+	//UE_LOG(LogTemp, Display, TEXT("Adicionou"));
+}
