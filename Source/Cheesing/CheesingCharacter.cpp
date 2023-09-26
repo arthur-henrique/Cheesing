@@ -90,6 +90,11 @@ void ACheesingCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ACheesingCharacter::OnResetVR);
 }
 
+void ACheesingCharacter::RechargeAmmo()
+{
+	hasAmmo = true;
+}
+
 
 void ACheesingCharacter::Roll()
 {
@@ -160,6 +165,8 @@ void ACheesingCharacter::MeleeAttack()
 	}
 	else if (stateEnum == ECharstate::VE_Aiming && hasAmmo)
 	{
+
+		hasAmmo = false;
 		FHitResult hit;
 
 		GetWorld()->LineTraceSingleByChannel(hit, FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, ECC_WorldDynamic);
@@ -171,13 +178,13 @@ void ACheesingCharacter::MeleeAttack()
 		{
 			DrawDebugLine(GetWorld(), FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, FColor::Red, true, 60.f, false, 4.f);
 			GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, TEXT("Shoot"));
-		}
-#endif
-		
-		//UE_LOG(LogTemp, Display, TEXT("%s"), *hit.ImpactPoint.ToString()); Se habilitado esses logs, crasham a Unreal quando hit for nulo
-		//UE_LOG(LogTemp,Display,TEXT("%s"), *hit.GetActor()->GetName())
+			//UE_LOG(LogTemp, Display, TEXT("%s"), *hit.ImpactPoint.ToString()); Se habilitado esses logs, crasham a Unreal quando hit for nulo
+//UE_LOG(LogTemp,Display,TEXT("%s"), *hit.GetActor()->GetName())	
 
+		}
+#endif //Debugs
 		
+	
 	}
 }
 
@@ -208,6 +215,30 @@ void ACheesingCharacter::Aim()
 
 }
 
+void ACheesingCharacter::InteractTo()
+{
+	attackRadiusTeste->GetOverlappingActors(overlapingActors);
+
+	for (AActor* actor : overlapingActors)
+	{
+		
+
+		if (debugMode)
+		{
+			FString s;
+			actor->GetName(s);
+
+			UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
+		}
+			
+
+		if (IInteractionInterface* dActor = Cast<IInteractionInterface>(actor))
+		{
+			dActor->Interact();
+		}
+	}
+}
+
 /*Get character Velocity as a float( X, Y axis only)*/
 float ACheesingCharacter::GetFloatVelocity()
 {
@@ -219,8 +250,6 @@ void ACheesingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	stateEnum = ECharstate::VE_Walking;
-
-	hasAmmo = true;
 }
 
 void ACheesingCharacter::Tick(float DeltaTime)

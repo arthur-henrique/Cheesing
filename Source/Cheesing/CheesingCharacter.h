@@ -8,6 +8,7 @@
 #include <Runtime/Engine/Classes/Components/SphereComponent.h>
 #include <DrawDebugHelpers.h>
 #include <Projectile.h>
+#include "InteractionInterface.h"
 
 #include "CheesingCharacter.generated.h"
 
@@ -59,6 +60,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void Aim();
+
+	UFUNCTION(blueprintCallable)
+	void InteractTo();
 
 	float GetFloatVelocity();
 
@@ -153,6 +157,8 @@ private:
 
 public:
 
+	UFUNCTION(BlueprintCallable, Category = "Attack")
+	void RechargeAmmo();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
