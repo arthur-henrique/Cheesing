@@ -100,6 +100,7 @@ void ACheesingCharacter::Roll()
 	if (stateEnum == ECharstate::VE_Walking)
 	{
 		stateEnum = ECharstate::VE_Rolling;
+		if(debugMode)
 		UE_LOG(LogTemp, Display, TEXT("Rolling"));
 
 		moveComponent->MaxWalkSpeed = rollSpeed;
@@ -108,6 +109,7 @@ void ACheesingCharacter::Roll()
 	else if (stateEnum == ECharstate::VE_Rolling)
 	{
 		stateEnum = ECharstate::VE_Walking;
+		if(debugMode)
 		UE_LOG(LogTemp, Display, TEXT("Walking"));
 
 		moveComponent->MaxWalkSpeed = normalWalkSpeed;
@@ -121,10 +123,13 @@ void ACheesingCharacter::MeleeAttack()
 {
 	if (stateEnum == ECharstate::VE_Walking)
 	{
+		if(debugMode)
 		UE_LOG(LogTemp, Display, TEXT("Cooldown: %f"), normalCooldown);
+
 		if (normalCooldown <= 0)
 		{
 			stateEnum = ECharstate::VE_Attacking;
+			if(debugMode)
 			UE_LOG(LogTemp, Display, TEXT("Attacking"));
 
 			//Inserir a lógica de ataque  	
@@ -135,6 +140,7 @@ void ACheesingCharacter::MeleeAttack()
 				FString s;
 				actor->GetName(s);
 
+				if(debugMode)
 				UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
 
 				if (IDamageInterface* dActor = Cast<IDamageInterface>(actor))
@@ -157,12 +163,21 @@ void ACheesingCharacter::MeleeAttack()
 		FHitResult hit;
 
 		GetWorld()->LineTraceSingleByChannel(hit, FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, ECC_WorldDynamic);
-		DrawDebugLine(GetWorld(), FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, FColor::Red, true, 60.f, false, 4.f);
-		
-		UE_LOG(LogTemp, Display, TEXT("%s"), *hit.ImpactPoint.ToString());
-		UE_LOG(LogTemp,Display,TEXT("%s"), *hit.GetActor()->GetName())
 
-		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, TEXT("Shoot"));
+		GetWorld()->SpawnActor<AProjectile>(projectile, projectilePoint->GetComponentLocation(), FollowCamera->GetComponentRotation());
+
+#if WITH_EDITOR
+		if (debugMode)
+		{
+			DrawDebugLine(GetWorld(), FollowCamera->GetComponentLocation(), FollowCamera->GetForwardVector() * 5000, FColor::Red, true, 60.f, false, 4.f);
+			GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, TEXT("Shoot"));
+		}
+#endif
+		
+		//UE_LOG(LogTemp, Display, TEXT("%s"), *hit.ImpactPoint.ToString()); Se habilitado esses logs, crasham a Unreal quando hit for nulo
+		//UE_LOG(LogTemp,Display,TEXT("%s"), *hit.GetActor()->GetName())
+
+		
 	}
 }
 
@@ -170,7 +185,8 @@ void ACheesingCharacter::Dash()
 {
 	FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
 	LaunchCharacter(dashVelocity * dashSpeedMultiplier,false,false);
-	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
+	if(debugMode)
+		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
 }
 
 void ACheesingCharacter::Aim()

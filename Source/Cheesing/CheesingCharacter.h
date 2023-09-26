@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include <Runtime/Engine/Classes/Components/SphereComponent.h>
 #include <DrawDebugHelpers.h>
+#include <Projectile.h>
 
 #include "CheesingCharacter.generated.h"
 
@@ -120,10 +121,19 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Attack")
 	USphereComponent* attackRadiusTeste;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Attack")
+	UStaticMeshComponent* projectilePoint;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attack")
 	bool hasAmmo;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
+	TSubclassOf<AProjectile> projectile;
+
 	TArray<AActor*> overlapingActors;
+
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	bool debugMode;
 
 private:
 	float normalWalkSpeed;
