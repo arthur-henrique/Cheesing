@@ -31,7 +31,7 @@ void ATrampoline::LaunchPlayerUp()
 	TArray<AActor*> player;
 	launchRadius->GetOverlappingActors(player, playerClass);
 
-	UE_LOG(LogTemp, Display, TEXT("Player Detected"));
+	//UE_LOG(LogTemp, Display, TEXT("Player Detected"));
 
 	for (AActor* playerA : player)
 	{
