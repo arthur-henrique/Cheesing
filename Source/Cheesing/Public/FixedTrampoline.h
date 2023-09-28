@@ -7,6 +7,7 @@
 #include <Cheesing/CheesingCharacter.h>
 #include "InteractionInterface.h"
 #include <Components/SphereComponent.h>
+#include "SIntermediaryWaypoint.h"
 
 #include "FixedTrampoline.generated.h"
 
@@ -29,14 +30,18 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Warp")
 	float speedDivider;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Waypoints")
-	UStaticMeshComponent* endPoint;
+	UPROPERTY(VisibleAnywhere, Category = "Waypoints|Intermediary Waypoints")
+	int currentPointIndex;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Warp")
 	ACheesingCharacter* playerActor;
 
 	UFUNCTION(BlueprintCallable, Category = "Warp")
 	void Warp(float DeltaTime);
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Waypoints|Intermediary Waypoints")
+	TArray<USIntermediaryWaypoint*> intermediaryPoints;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

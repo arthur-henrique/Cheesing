@@ -173,6 +173,7 @@ void ACheesingCharacter::MeleeAttack()
 
 		GetWorld()->SpawnActor<AProjectile>(projectile, projectilePoint->GetComponentLocation(), FollowCamera->GetComponentRotation());
 
+		Aim();
 #if WITH_EDITOR
 		if (debugMode)
 		{

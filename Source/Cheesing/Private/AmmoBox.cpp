@@ -35,6 +35,7 @@ void AAmmoBox::Interact()
 	{
 		if (ACheesingCharacter* player = Cast<ACheesingCharacter>(a))
 		{
+			player->Aim();
 			player->RechargeAmmo();
 		}
 	}

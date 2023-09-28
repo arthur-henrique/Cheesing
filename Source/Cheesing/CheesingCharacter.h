@@ -58,8 +58,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void Dash();
 
-	UFUNCTION(BlueprintCallable)
-	void Aim();
+
 
 	UFUNCTION(blueprintCallable)
 	void InteractTo();
@@ -156,6 +155,9 @@ private:
 
 
 public:
+
+	UFUNCTION(BlueprintCallable)
+	void Aim();
 
 	UFUNCTION(BlueprintCallable, Category = "Attack")
 	void RechargeAmmo();
