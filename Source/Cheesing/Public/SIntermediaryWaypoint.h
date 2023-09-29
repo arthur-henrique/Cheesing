@@ -26,5 +26,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Sorting")
 	int position;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Position")
+	FVector initialPosition;
 		
 };
