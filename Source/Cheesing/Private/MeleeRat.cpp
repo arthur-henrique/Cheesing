@@ -55,4 +55,32 @@ void AMeleeRat::Tick(float DeltaTime)
 
 }
 
+void AMeleeRat::LaunchPlayerUp()
+{
+	TSubclassOf<ACheesingCharacter> playerClass;
+	TArray<AActor*> player;
+	headRadius->GetOverlappingActors(player, playerClass);
+
+	UE_LOG(LogTemp, Display, TEXT("Player Detected"));
+
+	for (AActor* playerA : player)
+	{
+		if (ACheesingCharacter* cPlayer = Cast<ACheesingCharacter>(playerA))
+		{
+			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
+			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
+		}
+	}
+}
+
+void AMeleeRat::TakeDamageM(int damage)
+{
+	health -= damage;
+
+	UE_LOG(LogTemp, Warning, TEXT("Took Damage"));
+	if (health <= 0)
+	{
+		Destroy(true);
+	}
+}
 

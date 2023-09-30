@@ -6,11 +6,13 @@
 #include "GameFramework/Character.h"
 #include <Components/SphereComponent.h>
 #include "SIntermediaryWaypoint.h"
+#include "DamageInterface.h"
+#include <Cheesing/CheesingCharacter.h>
 
 #include "MeleeRat.generated.h"
 
 UCLASS()
-class CHEESING_API AMeleeRat : public ACharacter
+class CHEESING_API AMeleeRat : public ACharacter, public IDamageInterface
 {
 	GENERATED_BODY()
 
@@ -38,10 +40,13 @@ protected:
 
 	class AMeleeRatAIControler* controllerRef;
 
-	
-
 	UPROPERTY(EditAnywhere, Category = "Patrol")
 	TArray<USIntermediaryWaypoint*> patrolWaypoints;
+
+	UFUNCTION(BlueprintCallable, Category = "HeadJump")
+	void LaunchPlayerUp();
+
+	virtual void TakeDamageM(int damage) override;
 
 public:	
 	// Called every frame
@@ -49,5 +54,15 @@ public:
 
 	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
 
+protected:
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+	int health;
+
+	UPROPERTY(EditAnywhere, Category = "HeadJump")
+	float upForce;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "HeadJump")
+	USphereComponent* headRadius;
 
 };

@@ -27,16 +27,16 @@ void AMeleeRatAIControler::Patrol()
 	{
 		if (patrolWaypoints.Num() > 0)
 		{
-			MoveToLocation(patrolWaypoints[currentWaypointIndex]->GetComponentLocation(), .1f);
-			UE_LOG(LogTemp, Display, TEXT("Funcionou"));
+			MoveToLocation(patrolWaypoints[currentWaypointIndex]->initialPosition, .1f);
+			//UE_LOG(LogTemp, Display, TEXT("Funcionou"));
 			currentWaypointIndex++;
 		}
-		UE_LOG(LogTemp, Display, TEXT("Patrol"));
+		//UE_LOG(LogTemp, Display, TEXT("Patrol"));
 
 		
-		if (!patrolWaypoints.IsValidIndex(currentWaypointIndex+1))
+		if (!patrolWaypoints.IsValidIndex(currentWaypointIndex))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Chamou Crashou"));
+			//UE_LOG(LogTemp, Warning, TEXT("Chamou Crashou"));
 			currentWaypointIndex = 0;
 		}
 	}
