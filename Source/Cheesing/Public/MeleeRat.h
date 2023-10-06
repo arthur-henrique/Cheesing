@@ -23,6 +23,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Awareness")
 	bool canAttackPlayer;
 
+	UPROPERTY(BlueprintReadWrite)
 	class ACheesingCharacter* playerRef;
 
 	// Sets default values for this character's properties
@@ -46,7 +47,18 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "HeadJump")
 	void LaunchPlayerUp();
 
+	FTimerHandle seekPlayerTimerHandle;
+
 	virtual void TakeDamageM(int damage) override;
+
+	UFUNCTION(BlueprintCallable)
+	void MoveToPlayer();
+
+	UFUNCTION(BlueprintCallable)
+	void SeekPlayer();
+
+	UFUNCTION(BlueprintCallable)
+	void StopSeekingPlayer();
 
 public:	
 	// Called every frame
@@ -64,5 +76,11 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "HeadJump")
 	USphereComponent* headRadius;
+
+	UPROPERTY(EditAnywhere, Category = "Radius")
+	float stoppingDistance;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Seeking")
+	bool playerDetected;
 
 };

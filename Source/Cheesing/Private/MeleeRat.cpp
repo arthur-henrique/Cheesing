@@ -45,6 +45,7 @@ void AMeleeRat::BeginPlay()
 
 void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
+	if(!playerDetected)
 	controllerRef->Patrol();
 }
 
@@ -82,5 +83,21 @@ void AMeleeRat::TakeDamageM(int damage)
 	{
 		Destroy(true);
 	}
+}
+
+void AMeleeRat::MoveToPlayer()
+{
+	controllerRef->MoveToLocation(playerRef->GetActorLocation(), stoppingDistance, true);
+}
+
+void AMeleeRat::SeekPlayer()
+{
+	MoveToPlayer();
+	GetWorld()->GetTimerManager().SetTimer(seekPlayerTimerHandle, this, &AMeleeRat::SeekPlayer, .25f, true);
+}
+
+void AMeleeRat::StopSeekingPlayer()
+{
+	GetWorld()->GetTimerManager().ClearTimer(seekPlayerTimerHandle);
 }
 

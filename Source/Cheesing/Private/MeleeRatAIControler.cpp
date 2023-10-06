@@ -46,3 +46,4 @@ void AMeleeRatAIControler::GetWaypoints(TArray<USIntermediaryWaypoint*> waypoint
 {
 	patrolWaypoints = waypoints;
 }
+
