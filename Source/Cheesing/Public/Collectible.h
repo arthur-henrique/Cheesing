@@ -5,11 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "CheesingGameInstance.h"
+#include "InteractionInterface.h"
 
 #include "Collectible.generated.h"
 
 UCLASS()
-class CHEESING_API ACollectible : public AActor
+class CHEESING_API ACollectible : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
 	
