@@ -2,6 +2,7 @@
 
 
 #include "FixedTrampoline.h"
+#include "..\Public\FixedTrampoline.h"
 
 // Sets default values
 AFixedTrampoline::AFixedTrampoline()
@@ -75,7 +76,7 @@ void AFixedTrampoline::Tick(float DeltaTime)
 	}
 }
 
-void AFixedTrampoline::Interact()
+void AFixedTrampoline::Interact_Implementation()
 {
 	isActive = true;
 	normalGravity = playerActor->GetCharacterMovement()->GravityScale;

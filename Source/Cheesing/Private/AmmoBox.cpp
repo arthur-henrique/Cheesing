@@ -2,6 +2,7 @@
 
 
 #include "AmmoBox.h"
+#include "..\Public\AmmoBox.h"
 
 // Sets default values
 AAmmoBox::AAmmoBox()
@@ -25,7 +26,7 @@ void AAmmoBox::Tick(float DeltaTime)
 
 }
 
-void AAmmoBox::Interact()
+void AAmmoBox::Interact_Implementation()
 {
 	TArray<AActor*> actors;
 

@@ -7,7 +7,7 @@
 #include "InteractionInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(Blueprintable, MinimalAPI, meta = (CannotImplementInterfaceInBlueprint))
+UINTERFACE(BlueprintType, MinimalAPI)
 class UInteractionInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -23,6 +23,7 @@ class CHEESING_API IInteractionInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "InteractOur")
-	virtual void Interact() = 0;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "InteractOur")
+	void Interact();
+	virtual void Interact_Implementation();
 };

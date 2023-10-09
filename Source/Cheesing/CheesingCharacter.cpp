@@ -232,11 +232,14 @@ void ACheesingCharacter::InteractTo()
 			UE_LOG(LogTemp, Display, TEXT("Actor: %s"), *s);
 		}
 			
-
-		if (IInteractionInterface* dActor = Cast<IInteractionInterface>(actor))
+		if (actor->Implements<UInteractionInterface>())
 		{
-			dActor->Interact();
+			IInteractionInterface::Execute_Interact(actor);
 		}
+		//if (IInteractionInterface* dActor = Cast<IInteractionInterface>(actor))
+		//{
+		//	dActor->Interact();
+		//}
 	}
 }
 
