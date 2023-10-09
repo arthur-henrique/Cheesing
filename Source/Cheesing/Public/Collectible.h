@@ -10,7 +10,7 @@
 #include "Collectible.generated.h"
 
 UCLASS()
-class CHEESING_API ACollectible : public AActor, public IInteractionInterface
+class CHEESING_API ACollectible : public AActor
 {
 	GENERATED_BODY()
 	
@@ -24,6 +24,7 @@ protected:
 
 public:	
 	// Called every frame
+
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere,  Category = "Collectible Properties")
