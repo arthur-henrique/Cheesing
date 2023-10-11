@@ -99,5 +99,6 @@ void AMeleeRat::SeekPlayer()
 void AMeleeRat::StopSeekingPlayer()
 {
 	GetWorld()->GetTimerManager().ClearTimer(seekPlayerTimerHandle);
+	controllerRef->Patrol();
 }
 

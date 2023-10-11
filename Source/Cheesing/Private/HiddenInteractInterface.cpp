@@ -5,6 +5,9 @@
 
 // Add default functionality here for any IHiddenInteractInterface functions that are not pure virtual.
 
-void IHiddenInteractInterface::OnActivation()
+void IHiddenInteractInterface::OnActivation_Implementation()
 {
+#if WITH_EDITOR
+	UE_LOG(LogTemp, Display, TEXT("Ativou"));
+#endif
 }
