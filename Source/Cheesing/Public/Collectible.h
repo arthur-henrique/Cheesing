@@ -34,7 +34,10 @@ public:
 	bool wasCollected;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Description")
-	FString text;
+	FString collectibleText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Description")
+	FString descriptionText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Thumbnail")
 	UTexture2D* thumbnail;
