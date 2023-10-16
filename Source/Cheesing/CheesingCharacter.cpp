@@ -191,10 +191,24 @@ void ACheesingCharacter::MeleeAttack()
 
 void ACheesingCharacter::Dash()
 {
-	FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
-	LaunchCharacter(dashVelocity * dashSpeedMultiplier,false,false);
+	if (canDash)
+	{
+		FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
+		LaunchCharacter(dashVelocity * dashSpeedMultiplier, true, true);
+
+		GetWorld()->GetTimerManager().SetTimer(dashTimerHandle, this, &ACheesingCharacter::DashCooldown, dashCooldown, false);
+
+		canDash = false;
+	}
+
+
 	if(debugMode)
 		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
+}
+
+void ACheesingCharacter::DashCooldown()
+{
+	canDash = true;
 }
 
 void ACheesingCharacter::Aim()
@@ -254,6 +268,8 @@ void ACheesingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	stateEnum = ECharstate::VE_Walking;
+
+	canDash = true;
 }
 
 void ACheesingCharacter::Tick(float DeltaTime)

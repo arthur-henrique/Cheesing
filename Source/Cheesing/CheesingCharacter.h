@@ -58,6 +58,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void Dash();
 
+	void DashCooldown();
 
 
 	UFUNCTION(blueprintCallable)
@@ -118,6 +119,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash")
 	float dashSpeedMultiplier;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash")
+	float dashCooldown;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Dash")
+	bool canDash;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
 	float attackCooldown;
 
@@ -138,6 +145,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	bool debugMode;
 
+	FTimerHandle dashTimerHandle;
+
 private:
 	float normalWalkSpeed;
 
@@ -148,6 +157,8 @@ private:
 	float timeDelta;
 
 	bool changingCamera;
+
+	
 
 	UCharacterMovementComponent* moveComponent;
 
