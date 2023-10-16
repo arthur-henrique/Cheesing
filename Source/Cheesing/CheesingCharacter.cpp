@@ -1,4 +1,12 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+/*!
+ *  @file CheesingCharacter.cpp
+ *  @author Gabriel Tury
+ *  @date 2023-10-16
+ *  @brief Implementation of the CheesingCharacter class.
+ *  @project Cheesing
+ *
+ *  Implements the cheesing character.
+ */// Copyright Epic Games, Inc. All Rights Reserve
 
 #include "CheesingCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
@@ -89,13 +97,13 @@ void ACheesingCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ACheesingCharacter::OnResetVR);
 }
-
+/**Called to Recharge Character's ammo*/
 void ACheesingCharacter::RechargeAmmo()
 {
 	hasAmmo = true;
 }
 
-
+/**Called to change character to rolling State*/
 void ACheesingCharacter::Roll()
 {
 	//FVector velocity = GetVelocity();
@@ -124,6 +132,7 @@ void ACheesingCharacter::Roll()
 	
 }
 
+/**Called when M1 is pressed, handles attack in every state where it is possible */
 void ACheesingCharacter::MeleeAttack()
 {
 	if (stateEnum == ECharstate::VE_Walking)
@@ -188,13 +197,14 @@ void ACheesingCharacter::MeleeAttack()
 	
 	}
 }
-
+/**Called to make the character dash */
 void ACheesingCharacter::Dash()
 {
 	if (canDash)
 	{
 		FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
 		LaunchCharacter(dashVelocity * dashSpeedMultiplier, true, true);
+		//Lanca  o persongame a frente multiplicando sua velocidade, se isso não for setado de volta para o padrão, a velocidade sera a mesma até tocar o chão (não tem maxAirSpeed)
 
 		GetWorld()->GetTimerManager().SetTimer(dashTimerHandle, this, &ACheesingCharacter::DashCooldown, dashCooldown, false);
 
@@ -206,11 +216,14 @@ void ACheesingCharacter::Dash()
 		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
 }
 
+/**Called after dashcooldown(seconds)*/
 void ACheesingCharacter::DashCooldown()
 {
+	GetWorld()->GetTimerManager().ClearTimer(dashTimerHandle);
 	canDash = true;
 }
 
+/**Called to change camera to aiming State*/
 void ACheesingCharacter::Aim()
 {
 	if (stateEnum == ECharstate::VE_Walking)
@@ -230,6 +243,7 @@ void ACheesingCharacter::Aim()
 
 }
 
+/**Checks for objetcs that implements Interaction Interface inside a radius*/
 void ACheesingCharacter::InteractTo()
 {
 	attackRadiusTeste->GetOverlappingActors(overlapingActors);
@@ -257,7 +271,7 @@ void ACheesingCharacter::InteractTo()
 	}
 }
 
-/*Get character Velocity as a float( X, Y axis only)*/
+/**Get character Velocity as a float( X, Y axis only)*/
 float ACheesingCharacter::GetFloatVelocity()
 {
 	FVector velocityXY = FVector(GetVelocity().X, GetVelocity().Y, 0.f);

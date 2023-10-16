@@ -43,6 +43,7 @@ void AMeleeRat::BeginPlay()
 
 }
 
+/**Called when AI reaches its waypoint*/
 void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
 	if(!playerDetected)
@@ -55,7 +56,7 @@ void AMeleeRat::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-
+/**Launch Player upwards when enters a trigger*/
 void AMeleeRat::LaunchPlayerUp()
 {
 	TSubclassOf<ACheesingCharacter> playerClass;
@@ -84,21 +85,20 @@ void AMeleeRat::TakeDamageM(int damage)
 		Destroy(true);
 	}
 }
-
+/**Called to move player to the next waypoint*/
 void AMeleeRat::MoveToPlayer()
 {
 	controllerRef->MoveToLocation(playerRef->GetActorLocation(), stoppingDistance, true);
 }
-
+/**Called when player is in range to follow its location*/
 void AMeleeRat::SeekPlayer()
 {
 	MoveToPlayer();
 	GetWorld()->GetTimerManager().SetTimer(seekPlayerTimerHandle, this, &AMeleeRat::SeekPlayer, .25f, true);
 }
-
+/**Called when player steps out of range*/
 void AMeleeRat::StopSeekingPlayer()
 {
 	GetWorld()->GetTimerManager().ClearTimer(seekPlayerTimerHandle);
 	controllerRef->Patrol();
 }
-
