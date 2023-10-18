@@ -9,9 +9,6 @@
 
 #include "MosquitoAIController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class CHEESING_API AMosquitoAIController : public AAIController
 {
@@ -23,6 +20,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Patrol")
 	TArray<USIntermediaryWaypoint*> patrolWaypoints;
+
+	void BeginPlay() override;
 
 public:
 	UFUNCTION()

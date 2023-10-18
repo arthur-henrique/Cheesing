@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AITypes.h"
 #include "Mosquito.h"
+#include "AITypes.h"
+
 #include "Navigation/PathFollowingComponent.h"
 
 // Sets default values
@@ -17,6 +18,22 @@ void AMosquito::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GetComponents<USIntermediaryWaypoint>(patrolWaypoints);
+
+	if (patrolWaypoints.Num() != 0) //Sorting
+	{
+		for (int x = 0; x < patrolWaypoints.Num(); x++)
+		{
+			for (int i = 0; i < patrolWaypoints.Num(); i++)
+			{
+				if (patrolWaypoints[x]->position < patrolWaypoints[i]->position)
+				{
+					patrolWaypoints.Swap(x, i);
+				}
+			}
+		}
+	}
+
 }
 
 // Called every frame
@@ -24,12 +41,16 @@ void AMosquito::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
-}
-
-void AMosquito::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
-{
-
+	if (!(patrolWaypoints[currentWaypointIndex]->initialPosition - GetActorLocation()).IsNearlyZero(.1f))
+	{
+		GetRootComponent()->SetWorldLocation(FMath::Lerp(GetActorLocation(), patrolWaypoints[currentWaypointIndex]->initialPosition, .1f));
+	}
+	else
+	{
+		currentWaypointIndex++;
+		if (!patrolWaypoints.IsValidIndex(currentWaypointIndex))
+			currentWaypointIndex = 0;
+	}
 }
 
 

@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "SIntermediaryWaypoint.h"
+#include "MosquitoAIController.h"
 
 #include "Mosquito.generated.h"
 
@@ -22,19 +23,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Movement")
-	UFloatingPawnMovement* movementComponent;
-
-	class AMosquitoAIController* controllerRef;
-
 	UPROPERTY(EditAnywhere, Category = "Patrol")
 	TArray<USIntermediaryWaypoint*> patrolWaypoints;
+
+	UPROPERTY(VisibleAnywhere, Category = "Patrol")
+	int currentWaypointIndex;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
+	
 	
 
 };

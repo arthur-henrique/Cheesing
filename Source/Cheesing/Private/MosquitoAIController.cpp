@@ -3,8 +3,16 @@
 
 #include "MosquitoAIController.h"
 
+void AMosquitoAIController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	currentWaypointIndex = 0;
+}
+
 void AMosquitoAIController::Patrol()
 {
+	
 	if (patrolWaypoints.Num() > 0)
 	{
 		MoveToLocation(patrolWaypoints[currentWaypointIndex]->initialPosition, .1f);
