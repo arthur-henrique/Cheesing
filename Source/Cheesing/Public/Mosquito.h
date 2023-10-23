@@ -29,6 +29,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Patrol")
 	int currentWaypointIndex;
 
+	UPROPERTY(EditAnywhere, Category = "Patrol")
+		float speed;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

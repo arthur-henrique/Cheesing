@@ -43,7 +43,7 @@ void AMosquito::Tick(float DeltaTime)
 
 	if (!(patrolWaypoints[currentWaypointIndex]->initialPosition - GetActorLocation()).IsNearlyZero(.1f))
 	{
-		GetRootComponent()->SetWorldLocation(FMath::Lerp(GetActorLocation(), patrolWaypoints[currentWaypointIndex]->initialPosition, .1f));
+		GetRootComponent()->SetWorldLocation(FMath::VInterpConstantTo(GetActorLocation(), patrolWaypoints[currentWaypointIndex]->initialPosition, DeltaTime, speed));
 	}
 	else
 	{
