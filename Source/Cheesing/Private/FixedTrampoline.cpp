@@ -38,11 +38,11 @@ void AFixedTrampoline::BeginPlay()
 void AFixedTrampoline::Warp(float DeltaTime)
 {
 	timeDelta += DeltaTime;
-	timeDelta /= speedDivider;
+	timeDelta /= speed;
 
 	if (intermediaryPoints.Num() != 0) //Se os opontos intermediarios não forem nulos
 	{
-		playerActor->SetActorLocation(FMath::Lerp(playerActor->GetActorLocation(), intermediaryPoints[currentPointIndex]->GetComponentLocation(), timeDelta));
+		playerActor->SetActorLocation(FMath::VInterpConstantTo(playerActor->GetActorLocation(), intermediaryPoints[currentPointIndex]->GetComponentLocation(), DeltaTime, speed));
 	}
 
 	

@@ -28,7 +28,7 @@ protected:
 	bool isActive;
 
 	UPROPERTY(EditAnywhere, Category = "Warp")
-	float speedDivider;
+	float speed;
 
 	UPROPERTY(VisibleAnywhere, Category = "Waypoints|Intermediary Waypoints")
 	int currentPointIndex;

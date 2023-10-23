@@ -43,13 +43,32 @@ void AMosquito::Tick(float DeltaTime)
 
 	if (!(patrolWaypoints[currentWaypointIndex]->initialPosition - GetActorLocation()).IsNearlyZero(.1f))
 	{
-		GetRootComponent()->SetWorldLocation(FMath::Lerp(GetActorLocation(), patrolWaypoints[currentWaypointIndex]->initialPosition, .1f));
+		GetRootComponent()->SetWorldLocation(FMath::VInterpConstantTo(GetActorLocation(), patrolWaypoints[currentWaypointIndex]->initialPosition, DeltaTime, speed));
 	}
 	else
 	{
 		currentWaypointIndex++;
 		if (!patrolWaypoints.IsValidIndex(currentWaypointIndex))
 			currentWaypointIndex = 0;
+	}
+}
+
+/**Launch Player upwards when enters a trigger*/
+void AMosquito::LaunchPlayerUp()
+{
+	TSubclassOf<ACheesingCharacter> playerClass;
+	TArray<AActor*> player;
+	headRadius->GetOverlappingActors(player, playerClass);
+
+	UE_LOG(LogTemp, Display, TEXT("Player Detected"));
+
+	for (AActor* playerA : player)
+	{
+		if (ACheesingCharacter* cPlayer = Cast<ACheesingCharacter>(playerA))
+		{
+			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
+			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
+		}
 	}
 }
 
