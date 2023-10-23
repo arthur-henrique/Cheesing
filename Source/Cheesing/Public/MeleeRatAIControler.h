@@ -17,13 +17,15 @@ class CHEESING_API AMeleeRatAIControler : public AAIController
 	GENERATED_BODY()
 	
 public:
+	AMeleeRatAIControler();
+
 	void BeginPlay() override;
 
+	void Tick(float deltaTime) override;
 
 private:
 
-	UPROPERTY(VisibleAnywhere)
-	int currentWaypointIndex = 0;
+	float timer;
 
 	class UNavigationSystemV1* NavArea;
 
@@ -32,7 +34,10 @@ private:
 
 public:
 
-	UFUNCTION()
+	UPROPERTY(VisibleAnywhere)
+	int currentWaypointIndex = 0;
+
+	UFUNCTION(BlueprintCallable)
 	void Patrol();
 
 	UFUNCTION()
