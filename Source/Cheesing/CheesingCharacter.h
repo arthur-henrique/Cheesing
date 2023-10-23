@@ -60,6 +60,9 @@ protected:
 
 	void DashCooldown();
 
+	UFUNCTION()
+		void Landed(const FHitResult& Hit) override;
+
 
 	UFUNCTION(blueprintCallable)
 	void InteractTo();
@@ -158,7 +161,7 @@ private:
 
 	bool changingCamera;
 
-	
+	float originalGravity;
 
 	UCharacterMovementComponent* moveComponent;
 

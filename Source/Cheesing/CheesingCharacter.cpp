@@ -26,6 +26,7 @@
 
 ACheesingCharacter::ACheesingCharacter()
 {
+	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -64,6 +65,7 @@ ACheesingCharacter::ACheesingCharacter()
 	moveComponent = GetCharacterMovement();
 	normalWalkSpeed = moveComponent->MaxWalkSpeed;
 	normalAcceleration = moveComponent->MaxAcceleration;
+	originalGravity = moveComponent->GravityScale;
 	stateEnum = ECharstate::VE_Walking;
 
 	attackCooldown = 5.f;
@@ -223,6 +225,13 @@ void ACheesingCharacter::DashCooldown()
 	canDash = true;
 }
 
+void ACheesingCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Cyan, "Landed");
+	moveComponent->GravityScale = 5.f;
+}
+
 /**Called to change camera to aiming State*/
 void ACheesingCharacter::Aim()
 {
@@ -289,6 +298,7 @@ void ACheesingCharacter::BeginPlay()
 void ACheesingCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
 
 	if (changingCamera)
 	{
