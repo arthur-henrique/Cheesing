@@ -7,6 +7,8 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "SIntermediaryWaypoint.h"
 #include "MosquitoAIController.h"
+#include <Cheesing/CheesingCharacter.h>
+#include <Components/SphereComponent.h>
 
 #include "Mosquito.generated.h"
 
@@ -30,7 +32,16 @@ protected:
 	int currentWaypointIndex;
 
 	UPROPERTY(EditAnywhere, Category = "Patrol")
-		float speed;
+	float speed;
+
+	UPROPERTY(EditAnywhere, Category = "Head Jump")
+	float upForce;
+
+	UFUNCTION(BlueprintCallable)
+	void LaunchPlayerUp();
+
+	UPROPERTY(BlueprintReadWrite)
+	USphereComponent* headRadius;
 
 public:	
 	// Called every frame
