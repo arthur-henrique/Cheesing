@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Collectible.h"
+#include <Cheesing/CheesingCharacter.h>
 
 #include "CheesingGameInstance.generated.h"
 
@@ -20,6 +21,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Collectibles")
 	TArray<ACollectible*> collectiblesArray;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Player")
+	ACheesingCharacter* playerRef;
+
 protected:
 
 public:
@@ -31,4 +35,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Collectibles")
 		void AddToCollectiblesArray(ACollectible* collectibleToAdd);
+
+	
 };

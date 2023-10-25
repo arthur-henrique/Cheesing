@@ -16,6 +16,8 @@ void ATrampoline::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	gameInstance = Cast<UCheesingGameInstance>(GetGameInstance());
+
 }
 
 // Called every frame
@@ -27,6 +29,8 @@ void ATrampoline::Tick(float DeltaTime)
 
 void ATrampoline::LaunchPlayerUp()
 {
+	
+
 	TSubclassOf<ACheesingCharacter> playerClass;
 	TArray<AActor*> player;
 	launchRadius->GetOverlappingActors(player, playerClass);
@@ -37,8 +41,12 @@ void ATrampoline::LaunchPlayerUp()
 	{
 		if (ACheesingCharacter* cPlayer = Cast<ACheesingCharacter>(playerA))
 		{
+			if (cPlayer->CanJump())
+			{
 			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
 			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
+			}
+			
 		}
 	}
 }

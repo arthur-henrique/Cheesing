@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include <Cheesing/CheesingCharacter.h>
 #include <Components/SphereComponent.h>
+#include "CheesingGameInstance.h"
 
 #include "Trampoline.generated.h"
 
@@ -30,6 +31,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Launch")
 	float upForce;
+
+	UPROPERTY(BlueprintReadOnly, Category = "PlayerRef")
+	UCheesingGameInstance* gameInstance;
 
 public:	
 	// Called every frame
