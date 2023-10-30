@@ -166,8 +166,6 @@ private:
 	UCharacterMovementComponent* moveComponent;
 
 	
-
-
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -176,9 +174,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Attack")
 	void RechargeAmmo();
 
+	UFUNCTION(BlueprintCallable, Category = "Damage")
+	void TookDamage();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
-
 
 };
 

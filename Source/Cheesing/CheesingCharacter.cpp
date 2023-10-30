@@ -105,6 +105,12 @@ void ACheesingCharacter::RechargeAmmo()
 	hasAmmo = true;
 }
 
+void ACheesingCharacter::TookDamage()
+{
+	//What happens when receiving damage
+	Destroy();
+}
+
 /**Called to change character to rolling State*/
 void ACheesingCharacter::Roll()
 {
