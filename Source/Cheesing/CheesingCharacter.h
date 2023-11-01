@@ -48,6 +48,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+	int health;
+
 protected:
 	UFUNCTION(BlueprintCallable)
 	void Roll();
@@ -175,7 +178,7 @@ public:
 	void RechargeAmmo();
 
 	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void TookDamage();
+	bool TookDamage(int damage);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;

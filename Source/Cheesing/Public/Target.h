@@ -23,6 +23,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable,BlueprintNativeEvent, Category = "Hit")
 	void OnHit();
+	virtual void OnHit_Implementation();
 
 };

@@ -18,6 +18,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include <Cheesing/Public/DamageInterface.h>
 #include <Cheesing/Public/BasicEnemy.h>
+#include <HiddenInteractInterface.h>
 
 
 
@@ -104,11 +105,21 @@ void ACheesingCharacter::RechargeAmmo()
 {
 	hasAmmo = true;
 }
-
-void ACheesingCharacter::TookDamage()
+/**Returns false if is dead and true if is still alive*/
+bool ACheesingCharacter::TookDamage(int damage)
 {
 	//What happens when receiving damage
-	Destroy();
+	health-= damage;
+
+	if (health <= 0)
+	{
+		return false;
+		Destroy();
+	}
+	else
+	{
+		return true;
+	}
 }
 
 /**Called to change character to rolling State*/
@@ -168,6 +179,11 @@ void ACheesingCharacter::MeleeAttack()
 				if (IDamageInterface* dActor = Cast<IDamageInterface>(actor))
 				{
 					dActor->TakeDamageM(10); //Casta a interface no objeto q implementou ela
+				}
+				else if (actor->Implements<UHiddenInteractInterface>()) //Maneira Correta de implementar interfaces de bp e c++
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "WTF");
+					IHiddenInteractInterface::Execute_OnActivation(actor);
 				}
 			}
 

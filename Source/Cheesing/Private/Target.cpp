@@ -25,7 +25,7 @@ void ATarget::Tick(float DeltaTime)
 
 }
 
-void ATarget::OnHit()
+void ATarget::OnHit_Implementation()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Cyan, TEXT("Hit"));
 }
