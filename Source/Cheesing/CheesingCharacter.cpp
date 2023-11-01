@@ -235,7 +235,7 @@ void ACheesingCharacter::Landed(const FHitResult& Hit)
 {
 	Super::Landed(Hit);
 	GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Cyan, "Landed");
-	moveComponent->GravityScale = 5.f;
+	moveComponent->GravityScale = 2.85f;
 }
 
 /**Called to change camera to aiming State*/
