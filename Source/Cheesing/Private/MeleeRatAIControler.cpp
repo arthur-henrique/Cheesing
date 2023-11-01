@@ -55,6 +55,7 @@ void AMeleeRatAIControler::Patrol()
 			//UE_LOG(LogTemp, Display, TEXT("Patrol"));
 
 		}
+
 		timer = 0;
 	}
 }
