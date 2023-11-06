@@ -182,7 +182,7 @@ void ACheesingCharacter::MeleeAttack()
 				}
 				else if (actor->Implements<UHiddenInteractInterface>()) //Maneira Correta de implementar interfaces de bp e c++
 				{
-					GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "WTF");
+					//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "WTF");
 					IHiddenInteractInterface::Execute_OnActivation(actor);
 				}
 			}
