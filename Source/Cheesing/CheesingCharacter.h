@@ -61,6 +61,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void Dash();
 
+	UFUNCTION(Category = "Checkpoint")
+	void SetCheckpointPosition();
+
 	void DashCooldown();
 
 	UFUNCTION()
@@ -134,6 +137,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
 	float attackCooldown;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Checkpoint")
+	FVector lastValidPosition;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Attack")
 	USphereComponent* attackRadiusTeste;
 
@@ -153,6 +159,8 @@ protected:
 
 	FTimerHandle dashTimerHandle;
 
+	FTimerHandle checkpointTimerHandle;
+
 private:
 	float normalWalkSpeed;
 
@@ -169,6 +177,8 @@ private:
 	UCharacterMovementComponent* moveComponent;
 
 	
+
+	
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -179,6 +189,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Damage")
 	bool TookDamage(int damage);
+
+	
+	
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;

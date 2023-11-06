@@ -229,15 +229,26 @@ void ACheesingCharacter::Dash()
 		FVector dashVelocity = FVector(GetVelocity().X, GetVelocity().Y, 0.f);
 		LaunchCharacter(dashVelocity * dashSpeedMultiplier, true, true);
 		//Lanca  o persongame a frente multiplicando sua velocidade, se isso não for setado de volta para o padrão, a velocidade sera a mesma até tocar o chão (não tem maxAirSpeed)
-
+		
+		canDash = false;
 		GetWorld()->GetTimerManager().SetTimer(dashTimerHandle, this, &ACheesingCharacter::DashCooldown, dashCooldown, false);
 
-		canDash = false;
+		
 	}
 
 
 	if(debugMode)
 		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Dash"));
+}
+
+void ACheesingCharacter::SetCheckpointPosition()
+{
+	if (CanJump())
+	{
+		lastValidPosition = GetActorLocation();
+	}
+		
+
 }
 
 /**Called after dashcooldown(seconds)*/
@@ -313,6 +324,8 @@ void ACheesingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	stateEnum = ECharstate::VE_Walking;
+
+	GetWorld()->GetTimerManager().SetTimer(checkpointTimerHandle, this, &ACheesingCharacter::SetCheckpointPosition, 1.f, true, 1.f);
 
 	canDash = true;
 }
