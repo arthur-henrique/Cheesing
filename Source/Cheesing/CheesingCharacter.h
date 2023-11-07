@@ -190,11 +190,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Damage")
 	bool TookDamage(int damage);
 
-	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+	void  TookDmg();
 	
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Health")
+	bool isDead;
+
 
 };
 

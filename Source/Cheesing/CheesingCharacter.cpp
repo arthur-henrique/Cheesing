@@ -105,15 +105,17 @@ void ACheesingCharacter::RechargeAmmo()
 {
 	hasAmmo = true;
 }
+
 /**Returns false if is dead and true if is still alive*/
 bool ACheesingCharacter::TookDamage(int damage)
 {
 	//What happens when receiving damage
 	health-= damage;
-
+	TookDmg();
 	if (health <= 0)
 	{
 		return false;
+		isDead = true;
 		Destroy();
 	}
 	else
@@ -187,7 +189,7 @@ void ACheesingCharacter::MeleeAttack()
 				}
 			}
 
-			stateEnum = ECharstate::VE_Walking;
+			
 
 			normalCooldown = attackCooldown;
 		}
@@ -359,6 +361,10 @@ void ACheesingCharacter::Tick(float DeltaTime)
 	if (normalCooldown > 0)
 	{
 		normalCooldown -= DeltaTime;
+	}
+	else
+	{
+		stateEnum = ECharstate::VE_Walking;
 	}
 }
 
