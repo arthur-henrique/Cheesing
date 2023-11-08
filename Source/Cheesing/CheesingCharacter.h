@@ -193,13 +193,17 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 	void  TookDmg();
 	
+	UFUNCTION(BlueprintNativeEvent,BlueprintCallable, Category = "Jump")
+	void Bounced();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	bool isDead;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Jump")
+	bool isBouncing;
 
 };
 

@@ -124,6 +124,11 @@ bool ACheesingCharacter::TookDamage(int damage)
 	}
 }
 
+void ACheesingCharacter::Bounced_Implementation()
+{
+	isBouncing = true;
+}
+
 /**Called to change character to rolling State*/
 void ACheesingCharacter::Roll()
 {
