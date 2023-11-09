@@ -54,6 +54,11 @@ void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingRe
 	
 }
 
+void AMeleeRat::Die()
+{
+	Destroy(true);
+}
+
 // Called every frame
 void AMeleeRat::Tick(float DeltaTime)
 {
@@ -82,11 +87,11 @@ void AMeleeRat::LaunchPlayerUp()
 void AMeleeRat::TakeDamageM(int damage)
 {
 	health -= damage;
-
+	ReceivedDamage();
 	UE_LOG(LogTemp, Warning, TEXT("Took Damage"));
 	if (health <= 0)
 	{
-		Destroy(true);
+		dead = true;
 	}
 }
 /**Called to move player to the next waypoint*/

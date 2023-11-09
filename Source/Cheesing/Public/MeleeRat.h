@@ -66,6 +66,15 @@ public:
 
 	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
 
+	UFUNCTION(BlueprintCallable, Category = "Death")
+	void Die();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Health")
+	void ReceivedDamage();
+
+	UPROPERTY(BlueprintReadOnly, Category = "Death")
+	bool dead;
+
 protected:
 
 	UPROPERTY(EditAnywhere, Category = "Health")
