@@ -60,6 +60,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void StopSeekingPlayer();
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Attack")
+	void Attacking();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -74,6 +77,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Death")
 	bool dead;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Attack")
+	bool isAttacking;
 
 protected:
 

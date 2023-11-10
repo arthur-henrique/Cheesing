@@ -111,3 +111,8 @@ void AMeleeRat::StopSeekingPlayer()
 	GetWorld()->GetTimerManager().ClearTimer(seekPlayerTimerHandle);
 	//controllerRef->Patrol();
 }
+
+void AMeleeRat::Attacking_Implementation()
+{
+
+}
