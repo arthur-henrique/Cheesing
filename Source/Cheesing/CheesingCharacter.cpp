@@ -194,6 +194,9 @@ void ACheesingCharacter::MeleeAttack()
 				}
 			}
 
+			//Temporario para tirar o bug do AIM
+			FTimerHandle walkingTimer;
+			GetWorldTimerManager().SetTimer(walkingTimer,this, &ACheesingCharacter::SetCharWalking, 1.f, false);
 			
 
 			normalCooldown = attackCooldown;
@@ -272,6 +275,11 @@ void ACheesingCharacter::Landed(const FHitResult& Hit)
 	moveComponent->GravityScale = 2.85f;
 }
 
+void ACheesingCharacter::SetCharWalking()
+{
+	stateEnum = ECharstate::VE_Walking;
+}
+
 /**Called to change camera to aiming State*/
 void ACheesingCharacter::Aim()
 {
@@ -348,11 +356,11 @@ void ACheesingCharacter::Tick(float DeltaTime)
 
 		if (stateEnum == ECharstate::VE_Aiming)
 		{
-			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(0.f, 0.f, 0.f), FVector(180.f, 60.f, 60.f), timeDelta));
+			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(-115.f, -10.f, 106.f), FVector(50.f, 75.f, 90.f), timeDelta));
 		}
 		else if (stateEnum == ECharstate::VE_Walking)
 		{
-			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(180.f, 60.f, 60.f), FVector(0.f, 0.f, 0.f), timeDelta));
+			FollowCamera->SetRelativeLocation(FMath::Lerp(FVector(50.f, 75.f, 90.f), FVector(-115.f, -10.f, 106.f), timeDelta));
 		}
 		//GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Cyan, FString::Printf(TEXT("%f"), timeDelta));
 		if (FMath::IsNearlyEqual(timeDelta,1,.1f) )
@@ -367,10 +375,11 @@ void ACheesingCharacter::Tick(float DeltaTime)
 	{
 		normalCooldown -= DeltaTime;
 	}
-	else
-	{
-		stateEnum = ECharstate::VE_Walking;
-	}
+	//else
+	//{
+	//	
+	//	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Virou Walking");
+	//}
 }
 
 
