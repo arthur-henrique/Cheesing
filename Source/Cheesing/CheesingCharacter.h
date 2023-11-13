@@ -176,7 +176,7 @@ private:
 
 	UCharacterMovementComponent* moveComponent;
 
-	
+	void SetCharWalking();
 
 	
 public:
