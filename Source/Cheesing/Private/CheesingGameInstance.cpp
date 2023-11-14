@@ -55,3 +55,16 @@ void UCheesingGameInstance::AddToCollectiblesArray(ACollectible* collectibleToAd
 	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Add");
 	//UE_LOG(LogTemp, Display, TEXT("Adicionou"));
 }
+
+FVector UCheesingGameInstance::GetCheckpoint()
+{
+	if (!lastCheckpoint.IsZero())
+		return lastCheckpoint;
+	else
+		return FVector::ZeroVector;
+}
+
+void UCheesingGameInstance::ReturnToCheckpoint()
+{
+	playerRef->SetActorLocation(lastCheckpoint);
+}

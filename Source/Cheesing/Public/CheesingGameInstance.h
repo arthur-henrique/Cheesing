@@ -24,6 +24,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Player")
 	ACheesingCharacter* playerRef;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Checkpoint")
+	FVector lastCheckpoint;
+
 protected:
 
 public:
@@ -36,5 +39,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Collectibles")
 		void AddToCollectiblesArray(ACollectible* collectibleToAdd);
 
+	UFUNCTION(BlueprintCallable, Category = "Checkpoint")
+	FVector GetCheckpoint();
+
+	UFUNCTION(BlueprintCallable, Category = "Checkpoint")
+	void ReturnToCheckpoint();
+
+	
 	
 };
