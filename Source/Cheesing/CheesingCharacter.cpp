@@ -196,7 +196,7 @@ void ACheesingCharacter::MeleeAttack()
 
 			//Temporario para tirar o bug do AIM
 			FTimerHandle walkingTimer;
-			GetWorldTimerManager().SetTimer(walkingTimer,this, &ACheesingCharacter::SetCharWalking, 1.f, false);
+			GetWorldTimerManager().SetTimer(walkingTimer,this, &ACheesingCharacter::SetCharWalking, .2f, false);
 			
 
 			normalCooldown = attackCooldown;
