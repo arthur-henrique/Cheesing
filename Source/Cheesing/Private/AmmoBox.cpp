@@ -38,6 +38,7 @@ void AAmmoBox::Interact_Implementation()
 		{
 			player->Aim();
 			player->RechargeAmmo();
+			player->ChangeSpeed(400.f);
 		}
 	}
 }

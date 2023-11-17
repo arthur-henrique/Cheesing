@@ -124,6 +124,11 @@ bool ACheesingCharacter::TookDamage(int damage)
 	}
 }
 
+void ACheesingCharacter::ChangeSpeed(float speed)
+{
+	moveComponent->MaxWalkSpeed = speed;
+}
+
 void ACheesingCharacter::Bounced_Implementation()
 {
 	isBouncing = true;

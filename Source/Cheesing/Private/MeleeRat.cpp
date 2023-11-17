@@ -78,6 +78,7 @@ void AMeleeRat::LaunchPlayerUp()
 	{
 		if (ACheesingCharacter* cPlayer = Cast<ACheesingCharacter>(playerA))
 		{
+			TakeDamageM(10);
 			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
 			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
 		}

@@ -196,6 +196,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent,BlueprintCallable, Category = "Jump")
 	void Bounced();
 
+	UFUNCTION(BlueprintCallable, Category = "Movement")
+	void ChangeSpeed(float speed);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
 
