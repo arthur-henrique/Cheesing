@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include <Components/SphereComponent.h>
+#include <Components/BoxComponent.h>
 #include "SIntermediaryWaypoint.h"
 #include "DamageInterface.h"
 #include <Cheesing/CheesingCharacter.h>
@@ -90,7 +91,7 @@ protected:
 	float upForce;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "HeadJump")
-	USphereComponent* headRadius;
+	UBoxComponent* headRadius;
 
 	UPROPERTY(EditAnywhere, Category = "Radius")
 	float stoppingDistance;

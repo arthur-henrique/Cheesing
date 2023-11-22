@@ -46,7 +46,7 @@ void AMeleeRat::BeginPlay()
 /**Called when AI reaches its waypoint*/
 void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
-	if (!playerDetected)
+	if (!playerDetected && !dead)
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Green, "Chamou Patrulha");
 		controllerRef->Patrol();
@@ -103,12 +103,17 @@ void AMeleeRat::MoveToPlayer()
 /**Called when player is in range to follow its location*/
 void AMeleeRat::SeekPlayer()
 {
-	MoveToPlayer();
-	GetWorld()->GetTimerManager().SetTimer(seekPlayerTimerHandle, this, &AMeleeRat::SeekPlayer, .25f, true);
+	if (!dead)
+	{
+		MoveToPlayer();
+		GetWorld()->GetTimerManager().SetTimer(seekPlayerTimerHandle, this, &AMeleeRat::SeekPlayer, .25f, true);
+	}
+	
 }
 /**Called when player steps out of range*/
 void AMeleeRat::StopSeekingPlayer()
 {
+	if(!dead)
 	GetWorld()->GetTimerManager().ClearTimer(seekPlayerTimerHandle);
 	//controllerRef->Patrol();
 }
