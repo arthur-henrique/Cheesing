@@ -116,7 +116,8 @@ bool ACheesingCharacter::TookDamage(int damage)
 	{
 		return false;
 		isDead = true;
-		Destroy();
+		OnDeath();
+		
 	}
 	else
 	{

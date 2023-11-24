@@ -192,6 +192,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 	void  TookDmg();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+	void OnDeath();
 	
 	UFUNCTION(BlueprintNativeEvent,BlueprintCallable, Category = "Jump")
 	void Bounced();
