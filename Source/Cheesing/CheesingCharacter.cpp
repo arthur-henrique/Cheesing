@@ -114,9 +114,9 @@ bool ACheesingCharacter::TookDamage(int damage)
 	TookDmg();
 	if (health <= 0)
 	{
-		return false;
 		isDead = true;
 		OnDeath();
+		return false;
 		
 	}
 	else

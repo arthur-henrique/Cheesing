@@ -205,7 +205,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ECharstate stateEnum;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health")
+	UPROPERTY(BlueprintReadWrite, Category = "Health")
 	bool isDead;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Jump")
