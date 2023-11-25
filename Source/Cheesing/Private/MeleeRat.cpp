@@ -56,7 +56,8 @@ void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingRe
 
 void AMeleeRat::Die()
 {
-	Destroy(true);
+	SetActorHiddenInGame(true);
+	//Destroy(true);
 }
 
 // Called every frame
@@ -72,7 +73,7 @@ void AMeleeRat::LaunchPlayerUp()
 	TArray<AActor*> player;
 	headRadius->GetOverlappingActors(player, playerClass);
 
-	UE_LOG(LogTemp, Display, TEXT("Player Detected"));
+	//UE_LOG(LogTemp, Display, TEXT("Player Detected"));
 
 	for (AActor* playerA : player)
 	{
@@ -80,7 +81,7 @@ void AMeleeRat::LaunchPlayerUp()
 		{
 			TakeDamageM(10);
 			cPlayer->LaunchCharacter(FVector(0, 0, upForce), false, true);
-			GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
+			//GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, TEXT("Launched"));
 		}
 	}
 }
@@ -89,9 +90,10 @@ void AMeleeRat::TakeDamageM(int damage)
 {
 	health -= damage;
 	ReceivedDamage();
-	UE_LOG(LogTemp, Warning, TEXT("Took Damage"));
+	//UE_LOG(LogTemp, Warning, TEXT("Took Damage"));
 	if (health <= 0)
 	{
+		GetCharacterMovement()->MaxWalkSpeed = 0.f;
 		dead = true;
 	}
 }
