@@ -68,13 +68,6 @@ void AMeleeRat::Die()
 	SetActorHiddenInGame(true);
 	//Destroy(true);
 }
-
-// Called every frame
-void AMeleeRat::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 /**Launch Player upwards when enters a trigger*/
 void AMeleeRat::LaunchPlayerUp()
 {

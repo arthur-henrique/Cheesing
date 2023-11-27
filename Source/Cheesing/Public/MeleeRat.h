@@ -67,8 +67,6 @@ protected:
 	void Attacking();
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
 
