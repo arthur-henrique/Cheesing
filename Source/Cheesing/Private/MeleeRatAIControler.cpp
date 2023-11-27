@@ -32,7 +32,7 @@ void AMeleeRatAIControler::Tick(float deltaTime)
 void AMeleeRatAIControler::Patrol()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Patrolling");
-	
+
 
 	if (timer > 1)
 	{
@@ -51,6 +51,7 @@ void AMeleeRatAIControler::Patrol()
 				MoveToLocation(patrolWaypoints[currentWaypointIndex]->initialPosition, .1f);
 				//UE_LOG(LogTemp, Display, TEXT("Funcionou"));
 				currentWaypointIndex++;
+				
 			}
 			//UE_LOG(LogTemp, Display, TEXT("Patrol"));
 
