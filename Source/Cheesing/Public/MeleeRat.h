@@ -68,7 +68,7 @@ protected:
 
 public:	
 
-	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
+	//void OnMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Death")
 	void Die();

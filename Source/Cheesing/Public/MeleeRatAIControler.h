@@ -23,6 +23,8 @@ public:
 
 	void Tick(float deltaTime) override;
 
+	bool playerDetected;
+
 private:
 
 	float timer;
@@ -42,4 +44,6 @@ public:
 
 	UFUNCTION()
 	void GetWaypoints(TArray<USIntermediaryWaypoint*> waypoints);
+
+	void OnMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result) override;
 };

@@ -67,3 +67,17 @@ void AMeleeRatAIControler::GetWaypoints(TArray<USIntermediaryWaypoint*> waypoint
 	patrolWaypoints = waypoints;
 }
 
+void AMeleeRatAIControler::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
+{
+	Super::OnMoveCompleted(RequestID,Result);
+
+	if(!playerDetected && Result.IsSuccess())
+		Patrol();
+	else
+	{
+		if(Result.IsFailure())
+			UE_LOG(LogTemp, Warning, TEXT("Failed PathResult"));
+	}
+
+}
+
