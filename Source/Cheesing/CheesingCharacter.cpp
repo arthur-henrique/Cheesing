@@ -107,9 +107,19 @@ void ACheesingCharacter::RechargeAmmo()
 }
 
 /**Returns false if is dead and true if is still alive*/
-bool ACheesingCharacter::TookDamage(int damage)
+bool ACheesingCharacter::TookDamage(int damage, FVector damagePosition)
 {
 	//What happens when receiving damage
+	FVector damageDirection = damagePosition - GetActorLocation();
+	
+	damageDirection = FollowCamera->GetComponentLocation() - GetActorLocation();
+
+	LaunchCharacter(damageDirection * knockbackPlayerMultiplier,true,true);
+
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Emerald, TEXT("Launched"));
+
+	//moveComponent->AddImpulse(damageDirection * knockbackPlayerMultiplier);
+
 	health-= damage;
 	TookDmg();
 	if (health <= 0)

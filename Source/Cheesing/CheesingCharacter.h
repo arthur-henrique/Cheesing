@@ -157,6 +157,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	bool debugMode;
 
+	UPROPERTY(EditAnywhere, Category = "Damage")
+	float knockbackPlayerMultiplier;
+
 	FTimerHandle dashTimerHandle;
 
 	FTimerHandle checkpointTimerHandle;
@@ -188,7 +191,7 @@ public:
 	void RechargeAmmo();
 
 	UFUNCTION(BlueprintCallable, Category = "Damage")
-	bool TookDamage(int damage);
+	bool TookDamage(int damage, FVector damagePosition);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 	void  TookDmg();
