@@ -46,19 +46,19 @@ void AMeleeRat::BeginPlay()
 void AMeleeRat::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(timer<2)
-	timer += DeltaTime;
+	//if(timer<2)
+	//timer += DeltaTime;
 }
 
 /**Called when AI reaches its waypoint*/
 void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
-	if (!playerDetected && !dead && timer > 1.f )
+	if (!playerDetected && !dead /*&& timer > 1.f */)
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Green, "Chamou Patrulha");
 		controllerRef->Patrol();
 
-		timer = 0;
+		//timer = 0;
 	}
 	
 }

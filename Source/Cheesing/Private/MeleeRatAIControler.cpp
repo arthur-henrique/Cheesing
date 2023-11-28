@@ -25,8 +25,8 @@ void AMeleeRatAIControler::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
-	if(timer < 2)
-		timer += deltaTime;
+	//if(timer < 2)
+		//timer += deltaTime;
 
 }
 
@@ -35,8 +35,8 @@ void AMeleeRatAIControler::Patrol()
 	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Patrolling");
 
 
-	if (timer > 1)
-	{
+	//if (timer > 1)
+	//{
 		if (NavArea)
 		{
 
@@ -58,8 +58,8 @@ void AMeleeRatAIControler::Patrol()
 
 		}
 
-		timer = 0;
-	}
+		//timer = 0;
+	//}
 }
 
 void AMeleeRatAIControler::GetWaypoints(TArray<USIntermediaryWaypoint*> waypoints)
