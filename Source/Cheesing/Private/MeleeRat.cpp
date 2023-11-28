@@ -46,7 +46,7 @@ void AMeleeRat::BeginPlay()
 void AMeleeRat::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if(timer<2)
 	timer += DeltaTime;
 }
 

@@ -25,7 +25,8 @@ void AMeleeRatAIControler::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
-	timer += deltaTime;
+	if(timer < 2)
+		timer += deltaTime;
 
 }
 
