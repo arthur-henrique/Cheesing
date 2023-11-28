@@ -20,7 +20,7 @@ void AMeleeRat::BeginPlay()
 	Super::BeginPlay();
 
 	controllerRef = Cast<AMeleeRatAIControler>(GetController());
-	controllerRef->GetPathFollowingComponent()->OnRequestFinished.AddUObject(this, &AMeleeRat::OnAIMoveCompleted); //Notify when finished moving
+	//controllerRef->GetPathFollowingComponent()->OnRequestFinished.AddUObject(this, &AMeleeRat::OnAIMoveCompleted); //Notify when finished moving
 	
 	GetComponents<USIntermediaryWaypoint>(patrolWaypoints);
 
@@ -48,24 +48,40 @@ void AMeleeRat::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if(timer<2)
 	timer += DeltaTime;
+
+	controllerRef->playerDetected = playerDetected;
 }
 
 /**Called when AI reaches its waypoint*/
-void AMeleeRat::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
-{
-	if (Result.IsSuccess())
-	{
-		if (!playerDetected && !dead && timer > 1.f )
-		{
-		//GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Green, "Chamou Patrulha");
-		controllerRef->Patrol();
-
-		timer = 0;
-		}
-
-	}
-	
-}
+//void AMeleeRat::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
+//{
+//	Super::OnMoveCompleted(RequestID, Result);
+//
+//	if (Result.IsSuccess())
+//	{
+//		if (!playerDetected && !dead && timer > 1.f )
+//		{
+//		//GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Green, "Chamou Patrulha");
+//		controllerRef->Patrol();
+//
+//		timer = 0;
+//		}
+//
+//	}
+//	else
+//	{
+//		if (Result.IsFailure())
+//		{
+//			UE_LOG(LogTemp, Warning, TEXT("Failed PathResult"));
+//			
+//		}
+//		else if (Result.IsInterrupted())
+//		{
+//			UE_LOG(LogTemp, Warning, TEXT("Interrupted PathResult"));
+//		}
+//	}
+//	
+//}
 
 void AMeleeRat::Die()
 {
