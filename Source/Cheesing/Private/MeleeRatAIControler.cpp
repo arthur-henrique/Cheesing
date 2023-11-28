@@ -49,7 +49,7 @@ void AMeleeRatAIControler::Patrol()
 
 			if (patrolWaypoints.Num() > 0)
 			{
-				MoveToLocation(patrolWaypoints[currentWaypointIndex]->initialPosition, .1f);
+				MoveToLocation(patrolWaypoints[currentWaypointIndex]->initialPosition, .1f, true,true,true,true,0,true);
 				//UE_LOG(LogTemp, Display, TEXT("Funcionou"));
 				currentWaypointIndex++;
 				
