@@ -79,9 +79,9 @@ void AMeleeRatAIControler::OnMoveCompleted(FAIRequestID RequestID, const FPathFo
 		if (Result.IsFailure())
 		{
 			//timerDelegate.BindUFunction(this, FName("OnMoveCompleted"), RequestID, Result);
-			UE_LOG(LogTemp, Warning, TEXT("Failed PathResult"));
-			//FTimerHandle callTimer;
-			//GetWorldTimerManager().SetTimer(callTimer,timerDelegate, .2f, false);
+			//UE_LOG(LogTemp, Warning, TEXT("Failed PathResult"));
+			FTimerHandle callTimer;
+			GetWorldTimerManager().SetTimer(callTimer,this,&AMeleeRatAIControler::Patrol, .2f, false);
 		}
 			
 	}
