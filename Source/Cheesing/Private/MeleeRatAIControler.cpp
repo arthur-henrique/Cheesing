@@ -2,7 +2,6 @@
 
 
 #include "MeleeRatAIControler.h"
-
 #include "NavigationSystem.h"
 
 AMeleeRatAIControler::AMeleeRatAIControler()
@@ -17,6 +16,8 @@ void AMeleeRatAIControler::BeginPlay()
 	currentWaypointIndex = 0;
 	
 	NavArea = FNavigationSystem::GetCurrent<UNavigationSystemV1>(this); //Gets current Navigation system for this object
+
+	
 
 	//Patrol();
 }
@@ -75,8 +76,14 @@ void AMeleeRatAIControler::OnMoveCompleted(FAIRequestID RequestID, const FPathFo
 		Patrol();
 	else
 	{
-		if(Result.IsFailure())
+		if (Result.IsFailure())
+		{
+			//timerDelegate.BindUFunction(this, FName("OnMoveCompleted"), RequestID, Result);
 			UE_LOG(LogTemp, Warning, TEXT("Failed PathResult"));
+			//FTimerHandle callTimer;
+			//GetWorldTimerManager().SetTimer(callTimer,timerDelegate, .2f, false);
+		}
+			
 	}
 
 }

@@ -34,6 +34,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Patrol")
 	TArray<USIntermediaryWaypoint*> patrolWaypoints;
 
+	FTimerDelegate timerDelegate;
+
 public:
 
 	UPROPERTY(VisibleAnywhere)
